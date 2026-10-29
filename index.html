@@ -1,0 +1,1214 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Latihan Fi‘il Muḍāri‘</title>
+
+<style>
+:root {
+  --utama: #126b65;
+  --gelap: #153f43;
+  --latar: #eff8f5;
+  --garis: #d4e7e0;
+  --biru: #dceaff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(140deg, #e8f6f1, #fffaf0);
+  color: var(--gelap);
+  font-family: Arial, "Segoe UI", sans-serif;
+}
+
+.wadah {
+  max-width: 850px;
+  margin: 30px auto;
+  padding: 0 15px 30px;
+}
+
+header {
+  background: var(--utama);
+  color: white;
+  border-radius: 18px 18px 0 0;
+  padding: 24px;
+}
+
+header h1 {
+  font-size: clamp(22px, 4vw, 30px);
+  margin: 7px 0;
+}
+
+header .arab {
+  font-size: 27px;
+  margin: 5px 0;
+  direction: rtl;
+}
+
+main {
+  background: white;
+  padding: 23px;
+  border: 1px solid var(--garis);
+  border-radius: 0 0 18px 18px;
+}
+
+.petunjuk {
+  background: #fff9eb;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.atas {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 21px;
+}
+
+.label {
+  padding: 7px 13px;
+  border-radius: 50px;
+  background: var(--latar);
+  color: var(--utama);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.progres {
+  height: 9px;
+  border-radius: 20px;
+  background: #e6eeeb;
+  overflow: hidden;
+  margin: 14px 0 19px;
+}
+
+.progres div {
+  height: 100%;
+  background: var(--utama);
+  transition: width .2s;
+}
+
+.kalimat {
+  direction: rtl;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  background: #f9fcfb;
+  border: 1px solid var(--garis);
+  border-radius: 13px;
+  padding: 18px 12px;
+  margin: 18px 0 12px;
+}
+
+.kata {
+  font-family: "Traditional Arabic",
+    "Noto Naskh Arabic", serif;
+  font-size: clamp(28px, 5vw, 36px);
+  line-height: 1.8;
+  padding: 0 10px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  color: #153e43;
+  background: transparent;
+  cursor: pointer;
+}
+
+.kata.dipilih {
+  background: var(--biru);
+  border-color: #477cce;
+  color: #164c88;
+}
+
+.kata:disabled {
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.kata:focus-visible,
+.tombol:focus-visible {
+  outline: 3px solid #e6aa3a;
+  outline-offset: 3px;
+}
+
+.catatan {
+  font-size: 13px;
+  color: #536e70;
+  line-height: 1.5;
+}
+
+.tombol {
+  background: var(--utama);
+  color: white;
+  padding: 12px 17px;
+  border: 0;
+  border-radius: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.tombol:disabled {
+  background: #afbfba;
+  cursor: not-allowed;
+}
+
+.tombol.sekunder {
+  background: white;
+  border: 1px solid var(--utama);
+  color: var(--utama);
+}
+
+.umpan {
+  padding: 15px;
+  border-radius: 12px;
+  margin-top: 18px;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.umpan.benar {
+  background: #e8f7eb;
+  border: 1px solid #b4dfbc;
+}
+
+.umpan.salah {
+  background: #fff3e9;
+  border: 1px solid #e9ccb7;
+}
+
+.umpan ul {
+  margin: 7px 0;
+  padding-left: 25px;
+}
+
+.umpan li {
+  margin: 4px 0;
+}
+
+.aksi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.nilai {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.nilai > div {
+  background: var(--latar);
+  border: 1px solid var(--garis);
+  border-radius: 12px;
+  padding: 15px;
+}
+
+.nilai strong {
+  display: block;
+  font-size: 30px;
+  color: var(--utama);
+  margin-top: 6px;
+}
+
+.rekap {
+  list-style: none;
+  padding: 0;
+}
+
+.rekap li {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--garis);
+}
+
+.pembahasan {
+  border: 1px solid var(--garis);
+  border-radius: 12px;
+  padding: 12px 15px;
+  margin: 12px 0;
+  line-height: 1.7;
+}
+
+.arab-kunci {
+  font-family: "Traditional Arabic",
+    "Noto Naskh Arabic", serif;
+  direction: rtl;
+  text-align: right;
+  font-size: 27px;
+}
+
+@media (max-width: 550px) {
+  .wadah {
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    border-radius: 0;
+  }
+
+  main {
+    border-radius: 0;
+    padding: 16px;
+  }
+
+  .nilai {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="wadah">
+
+  <header>
+    <small>
+      E-MODUL TARĀKĪB • KELAS XI • TEMA KESEHATAN
+    </small>
+
+    <h1>Temukan dan Tandai Fi‘il Muḍāri‘</h1>
+
+    <p class="arab" lang="ar">
+      تَدْرِيبٌ عَلَى الْفِعْلِ الْمُضَارِعِ
+    </p>
+  </header>
+
+  <main>
+    <div class="petunjuk">
+      <b>Petunjuk:</b>
+
+      Klik semua kata yang termasuk
+      fi‘il muḍāri‘.
+
+      Klik ulang kata untuk membatalkan pilihan.
+
+      Setelah menekan <b>Simpan Jawaban</b>,
+      jawaban terkunci dan pembahasan
+      langsung muncul.
+
+      Setelah seluruh 5 soal dikerjakan,
+      hanya soal yang salah boleh
+      diperbaiki <b>satu kali</b>.
+
+      Setiap soal bernilai <b>2 poin</b>,
+      maksimal <b>10 poin</b>.
+    </div>
+
+    <div id="app" aria-live="polite"></div>
+  </main>
+
+</div>
+
+<script>
+
+// =====================================
+// BAGIAN 1: DATA SOAL
+// =====================================
+
+// benar: true  = fi‘il muḍāri‘
+// benar: false = bukan fi‘il muḍāri‘
+
+const soal = [
+
+  // SOAL 1
+
+  {
+    petunjuk:
+      "Cari kata yang menunjukkan kegiatan bangun dan minum.",
+
+    kata: [
+      {
+        teks: "يَسْتَيْقِظُ",
+        benar: true,
+        alasan:
+          "يَسْتَيْقِظُ adalah fi‘il muḍāri‘ yang berarti bangun."
+      },
+      {
+        teks: "أَحْمَدُ",
+        benar: false,
+        alasan:
+          "أَحْمَدُ adalah isim, yaitu nama orang."
+      },
+      {
+        teks: "مُبَكِّرًا",
+        benar: false,
+        alasan:
+          "مُبَكِّرًا menjelaskan keadaan bangun lebih awal, bukan fi‘il."
+      },
+      {
+        teks: "وَيَشْرَبُ",
+        benar: true,
+        alasan:
+          "يَشْرَبُ berarti minum, didahului huruf penghubung وَ."
+      },
+      {
+        teks: "الْمَاءَ",
+        benar: false,
+        alasan:
+          "الْمَاءَ adalah isim yang berarti air."
+      },
+      {
+        teks: "كُلَّ",
+        benar: false,
+        alasan:
+          "كُلَّ adalah isim, bukan kata kerja."
+      },
+      {
+        teks: "صَبَاحٍ.",
+        benar: false,
+        alasan:
+          "صَبَاحٍ adalah isim yang berarti pagi."
+      }
+    ]
+  },
+
+  // SOAL 2
+
+  {
+    petunjuk:
+      "Temukan kegiatan mencuci tangan dan makan buah.",
+
+    kata: [
+      {
+        teks: "تَغْسِلُ",
+        benar: true,
+        alasan:
+          "تَغْسِلُ adalah fi‘il muḍāri‘ yang berarti mencuci."
+      },
+      {
+        teks: "فَاطِمَةُ",
+        benar: false,
+        alasan:
+          "فَاطِمَةُ adalah isim, yaitu nama orang."
+      },
+      {
+        teks: "يَدَيْهَا",
+        benar: false,
+        alasan:
+          "يَدَيْهَا adalah isim yang berarti kedua tangannya."
+      },
+      {
+        teks: "قَبْلَ",
+        benar: false,
+        alasan:
+          "قَبْلَ adalah keterangan waktu, bukan fi‘il."
+      },
+      {
+        teks: "الطَّعَامِ",
+        benar: false,
+        alasan:
+          "الطَّعَامِ adalah isim yang berarti makanan."
+      },
+      {
+        teks: "ثُمَّ",
+        benar: false,
+        alasan:
+          "ثُمَّ adalah huruf penghubung yang berarti kemudian."
+      },
+      {
+        teks: "تَأْكُلُ",
+        benar: true,
+        alasan:
+          "تَأْكُلُ adalah fi‘il muḍāri‘ yang berarti makan."
+      },
+      {
+        teks: "فَاكِهَةً",
+        benar: false,
+        alasan:
+          "فَاكِهَةً adalah isim yang berarti buah."
+      },
+      {
+        teks: "طَازَجَةً.",
+        benar: false,
+        alasan:
+          "طَازَجَةً adalah sifat yang berarti segar."
+      }
+    ]
+  },
+
+  // SOAL 3
+
+  {
+    petunjuk:
+      "Bedakan kegiatan yang sudah terjadi dan kegiatan hari ini.",
+
+    kata: [
+      {
+        teks: "ذَهَبَ",
+        benar: false,
+        alasan:
+          "ذَهَبَ adalah fi‘il māḍī (telah pergi), bukan muḍāri‘."
+      },
+      {
+        teks: "خَالِدٌ",
+        benar: false,
+        alasan:
+          "خَالِدٌ adalah isim berupa nama orang."
+      },
+      {
+        teks: "إِلَى",
+        benar: false,
+        alasan:
+          "إِلَى adalah ḥarf jarr yang berarti ke."
+      },
+      {
+        teks: "الْمُسْتَشْفَى",
+        benar: false,
+        alasan:
+          "الْمُسْتَشْفَى adalah isim yang berarti rumah sakit."
+      },
+      {
+        teks: "أَمْسِ،",
+        benar: false,
+        alasan:
+          "أَمْسِ adalah keterangan waktu kemarin."
+      },
+      {
+        teks: "وَالْيَوْمَ",
+        benar: false,
+        alasan:
+          "الْيَوْمَ berarti hari ini; bukan fi‘il."
+      },
+      {
+        teks: "يَزُورُ",
+        benar: true,
+        alasan:
+          "يَزُورُ adalah fi‘il muḍāri‘ yang berarti mengunjungi."
+      },
+      {
+        teks: "الطَّبِيبَ",
+        benar: false,
+        alasan:
+          "الطَّبِيبَ adalah isim yang berarti dokter."
+      },
+      {
+        teks: "وَيَتَنَاوَلُ",
+        benar: true,
+        alasan:
+          "يَتَنَاوَلُ adalah fi‘il muḍāri‘ yang berarti mengonsumsi."
+      },
+      {
+        teks: "الدَّوَاءَ.",
+        benar: false,
+        alasan:
+          "الدَّوَاءَ adalah isim yang berarti obat."
+      }
+    ]
+  },
+
+  // SOAL 4
+
+  {
+    petunjuk:
+      "Cari tiga kegiatan terkait olahraga, makanan, dan tidur.",
+
+    kata: [
+      {
+        teks: "يُمَارِسُ",
+        benar: true,
+        alasan:
+          "يُمَارِسُ adalah fi‘il muḍāri‘ yang berarti melakukan atau berlatih."
+      },
+      {
+        teks: "الطُّلَّابُ",
+        benar: false,
+        alasan:
+          "الطُّلَّابُ adalah isim jamak yang berarti para siswa."
+      },
+      {
+        teks: "الرِّيَاضَةَ،",
+        benar: false,
+        alasan:
+          "الرِّيَاضَةَ adalah isim yang berarti olahraga."
+      },
+      {
+        teks: "وَيَأْكُلُونَ",
+        benar: true,
+        alasan:
+          "يَأْكُلُونَ adalah fi‘il muḍāri‘ untuk mereka (laki-laki) makan."
+      },
+      {
+        teks: "طَعَامًا",
+        benar: false,
+        alasan:
+          "طَعَامًا adalah isim yang berarti makanan."
+      },
+      {
+        teks: "صِحِّيًّا،",
+        benar: false,
+        alasan:
+          "صِحِّيًّا adalah kata sifat yang berarti sehat."
+      },
+      {
+        teks: "وَلَا",
+        benar: false,
+        alasan:
+          "وَلَا mengandung huruf penghubung وَ dan penyangkalan لَا."
+      },
+      {
+        teks: "يَسْهَرُونَ",
+        benar: true,
+        alasan:
+          "يَسْهَرُونَ adalah fi‘il muḍāri‘ yang berarti begadang."
+      },
+      {
+        teks: "لَيْلًا.",
+        benar: false,
+        alasan:
+          "لَيْلًا adalah isim yang menunjukkan waktu malam."
+      }
+    ]
+  },
+
+  // SOAL 5
+
+  {
+    petunjuk:
+      "Perhatikan perbedaan fi‘il māḍī dan tiga fi‘il muḍāri‘.",
+
+    kata: [
+      {
+        teks: "كَانَتْ",
+        benar: false,
+        alasan:
+          "كَانَتْ adalah fi‘il māḍī nāqiṣ, bukan muḍāri‘."
+      },
+      {
+        teks: "سَلْمَى",
+        benar: false,
+        alasan:
+          "سَلْمَى adalah isim berupa nama orang."
+      },
+      {
+        teks: "مَرِيضَةً،",
+        benar: false,
+        alasan:
+          "مَرِيضَةً adalah kata sifat yang berarti sakit."
+      },
+      {
+        teks: "وَالْآنَ",
+        benar: false,
+        alasan:
+          "الْآنَ adalah keterangan waktu sekarang."
+      },
+      {
+        teks: "تَشْعُرُ",
+        benar: true,
+        alasan:
+          "تَشْعُرُ adalah fi‘il muḍāri‘ yang berarti merasa."
+      },
+      {
+        teks: "بِالتَّحَسُّنِ،",
+        benar: false,
+        alasan:
+          "التَّحَسُّنِ adalah isim/maṣdar, didahului ḥarf jarr بِ."
+      },
+      {
+        teks: "وَتَشْرَبُ",
+        benar: true,
+        alasan:
+          "تَشْرَبُ adalah fi‘il muḍāri‘ yang berarti minum."
+      },
+      {
+        teks: "الْمَاءَ،",
+        benar: false,
+        alasan:
+          "الْمَاءَ adalah isim yang berarti air."
+      },
+      {
+        teks: "وَتَسْتَرِيحُ",
+        benar: true,
+        alasan:
+          "تَسْتَرِيحُ adalah fi‘il muḍāri‘ yang berarti beristirahat."
+      },
+      {
+        teks: "فِي",
+        benar: false,
+        alasan:
+          "فِي adalah ḥarf jarr yang berarti di."
+      },
+      {
+        teks: "الْبَيْتِ.",
+        benar: false,
+        alasan:
+          "الْبَيْتِ adalah isim yang berarti rumah."
+      }
+    ]
+  }
+];
+
+// =====================================
+// BAGIAN 2: PENGATURAN LATIHAN
+// =====================================
+
+const app = document.getElementById("app");
+
+const jawabanAwal = Array(soal.length).fill(null);
+
+const jawabanPerbaikan =
+  Array(soal.length).fill(null);
+
+let tahap = "awal";
+let urutan = 0;
+let dipilih = new Set();
+let soalSalah = [];
+
+// =====================================
+// BAGIAN 3: FUNGSI PEMBANTU
+// =====================================
+
+function aman(teks) {
+  return String(teks).replace(/[&<>"']/g, c => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  }[c]));
+}
+
+function nomorSoal() {
+  return tahap === "awal"
+    ? urutan
+    : soalSalah[urutan];
+}
+
+function tersimpan(id) {
+  return tahap === "awal"
+    ? jawabanAwal[id]
+    : jawabanPerbaikan[id];
+}
+
+function kunci(q) {
+  return q.kata.flatMap(
+    (k, i) => k.benar ? [i] : []
+  );
+}
+
+function cocok(a, b) {
+  return a.length === b.length &&
+    a.every(i => b.includes(i));
+}
+
+function poin(data) {
+  return data && data.tepat ? 2 : 0;
+}
+
+function nilaiAwal() {
+  return jawabanAwal.reduce(
+    (n, d) => n + poin(d), 0
+  );
+}
+
+function nilaiAkhir() {
+  return soal.reduce(
+    (n, _, i) =>
+      n + poin(
+        jawabanPerbaikan[i] || jawabanAwal[i]
+      ),
+    0
+  );
+}
+
+// =====================================
+// BAGIAN 4: UMPAN BALIK
+// =====================================
+
+function buatUmpan(q, hasil) {
+
+  const benar = kunci(q);
+
+  if (hasil.tepat) {
+    return `
+      <div class="umpan benar">
+
+        <b>
+          مُمْتَازٌ! Jawaban benar — 2/2 poin.
+        </b>
+
+        <ul>
+          ${benar.map(i => `
+            <li>
+              ${aman(q.kata[i].alasan)}
+            </li>
+          `).join("")}
+        </ul>
+
+      </div>
+    `;
+  }
+
+  const salahPilih = hasil.pilihan.filter(
+    i => !benar.includes(i)
+  );
+
+  const terlewat = benar.filter(
+    i => !hasil.pilihan.includes(i)
+  );
+
+  return `
+    <div class="umpan salah">
+
+      <b>
+        Jawaban belum tepat — 0/2 poin.
+      </b>
+
+      ${salahPilih.length ? `
+        <p>Kata yang keliru dipilih:</p>
+
+        <ul>
+          ${salahPilih.map(i => `
+            <li>
+              ${aman(q.kata[i].teks)}:
+              ${aman(q.kata[i].alasan)}
+            </li>
+          `).join("")}
+        </ul>
+      ` : ""}
+
+      ${terlewat.length ? `
+        <p>
+          Masih ada
+          <b>${terlewat.length}</b>
+          fi‘il muḍāri‘ yang belum ditandai.
+        </p>
+      ` : ""}
+
+      <p>
+        <b>Petunjuk:</b>
+        ${aman(q.petunjuk)}
+      </p>
+
+      <p>
+        Jawaban terkunci.
+
+        ${tahap === "awal"
+          ? "Perbaikan tersedia setelah kelima soal selesai."
+          : "Kesempatan perbaikan untuk soal ini telah digunakan."}
+      </p>
+
+    </div>
+  `;
+}
+
+// =====================================
+// BAGIAN 5: MENAMPILKAN SOAL
+// =====================================
+
+function tampilSoal() {
+
+  const id = nomorSoal();
+  const q = soal[id];
+  const hasil = tersimpan(id);
+
+  const total = tahap === "awal"
+    ? soal.length
+    : soalSalah.length;
+
+  const progres = Math.round(
+    (urutan + (hasil ? 1 : 0)) / total * 100
+  );
+
+  const pilihan = hasil
+    ? hasil.pilihan
+    : [...dipilih];
+
+  app.innerHTML = `
+
+    <div class="atas">
+
+      <span class="label">
+        ${tahap === "awal"
+          ? `Soal ${urutan + 1} dari 5`
+          : `Perbaikan ${urutan + 1} dari ${total} (soal ${id + 1})`}
+      </span>
+
+      <small>2 poin per soal</small>
+
+    </div>
+
+    <div class="progres">
+      <div style="width:${progres}%"></div>
+    </div>
+
+    <h2>
+      ${tahap === "awal"
+        ? "Tandai fi‘il muḍāri‘"
+        : `Perbaiki soal nomor ${id + 1}`}
+    </h2>
+
+    <p>
+      Pilih <b>semua</b> kata yang termasuk
+      fi‘il muḍāri‘ pada teks berikut:
+    </p>
+
+    <div class="kalimat"
+         lang="ar"
+         aria-label="Kata-kata dalam soal">
+
+      ${q.kata.map((kata, i) => `
+        <button
+          type="button"
+          class="kata ${pilihan.includes(i)
+            ? "dipilih"
+            : ""}"
+          data-nomor="${i}"
+          aria-pressed="${pilihan.includes(i)}"
+          ${hasil ? "disabled" : ""}>
+
+          ${aman(kata.teks)}
+
+        </button>
+      `).join("")}
+
+    </div>
+
+    <p class="catatan">
+      ${hasil
+        ? "🔒 Jawaban tersimpan dan terkunci."
+        : `${dipilih.size} kata dipilih. Klik ulang untuk membatalkan.`}
+    </p>
+
+    <div id="aksiSoal"></div>
+  `;
+
+  const aksi =
+    document.getElementById("aksiSoal");
+
+  // Jika jawaban belum disimpan
+  if (!hasil) {
+
+    document.querySelectorAll(".kata")
+      .forEach(btn => {
+
+        btn.addEventListener("click", () => {
+
+          const i = Number(
+            btn.dataset.nomor
+          );
+
+          if (dipilih.has(i)) {
+            dipilih.delete(i);
+          } else {
+            dipilih.add(i);
+          }
+
+          tampilSoal();
+        });
+      });
+
+    aksi.innerHTML = `
+      <button
+        class="tombol"
+        id="simpan"
+        ${dipilih.size ? "" : "disabled"}>
+
+        Simpan Jawaban
+
+      </button>
+    `;
+
+    document.getElementById("simpan")
+      .addEventListener("click", () => {
+
+        if (!dipilih.size || tersimpan(id)) {
+          return;
+        }
+
+        const pilihanSiswa =
+          [...dipilih].sort((a, b) => a - b);
+
+        const data = {
+          pilihan: pilihanSiswa,
+          tepat: cocok(
+            pilihanSiswa,
+            kunci(q)
+          )
+        };
+
+        if (tahap === "awal") {
+          jawabanAwal[id] = data;
+        } else {
+          jawabanPerbaikan[id] = data;
+        }
+
+        tampilSoal();
+      });
+
+  } else {
+
+    // Jika jawaban sudah tersimpan
+    const terakhir = urutan === total - 1;
+
+    aksi.innerHTML = `
+
+      ${buatUmpan(q, hasil)}
+
+      <div class="aksi">
+
+        <button
+          class="tombol"
+          id="lanjut">
+
+          ${terakhir
+            ? "Lihat Hasil"
+            : "Soal Berikutnya →"}
+
+        </button>
+
+      </div>
+    `;
+
+    document.getElementById("lanjut")
+      .addEventListener("click", () => {
+
+        if (terakhir) {
+
+          tampilHasil();
+
+        } else {
+
+          urutan++;
+          dipilih = new Set();
+          tampilSoal();
+
+        }
+
+        window.scrollTo(0, 0);
+      });
+
+  }
+}
+
+// =====================================
+// BAGIAN 6: MENAMPILKAN NILAI
+// =====================================
+
+function tampilHasil() {
+
+  const selesaiPerbaikan =
+    tahap === "perbaikan";
+
+  const awal = nilaiAwal();
+
+  const akhir = selesaiPerbaikan
+    ? nilaiAkhir()
+    : awal;
+
+  soalSalah = jawabanAwal.flatMap(
+    (r, i) => r && !r.tepat ? [i] : []
+  );
+
+  const rekap = soal.map((_, i) => {
+
+    const hasil =
+      jawabanPerbaikan[i] || jawabanAwal[i];
+
+    return `
+      <li>
+
+        <span>Soal ${i + 1}</span>
+
+        <span>
+          Awal: ${poin(jawabanAwal[i])}/2
+
+          ${selesaiPerbaikan
+            ? ` · Setelah perbaikan: ${poin(hasil)}/2`
+            : ""}
+        </span>
+
+      </li>
+    `;
+  }).join("");
+
+  const tampilKunci =
+    selesaiPerbaikan ||
+    soalSalah.length === 0;
+
+  app.innerHTML = `
+
+    <div class="atas">
+      <span class="label">
+        ${selesaiPerbaikan
+          ? "Evaluasi selesai"
+          : "5 soal selesai"}
+      </span>
+    </div>
+
+    <h2>Hasil Latihan</h2>
+
+    <div class="nilai">
+
+      <div>
+        <small>
+          Skor percobaan pertama
+        </small>
+
+        <strong>${awal}/10</strong>
+        <small>${awal * 10}%</small>
+      </div>
+
+      <div>
+        <small>
+          ${selesaiPerbaikan
+            ? "Skor setelah perbaikan"
+            : "Skor saat ini"}
+        </small>
+
+        <strong>${akhir}/10</strong>
+        <small>${akhir * 10}%</small>
+      </div>
+
+    </div>
+
+    <h3>Rekap Per Soal</h3>
+
+    <ul class="rekap">
+      ${rekap}
+    </ul>
+
+    ${tampilKunci ? `
+
+      <h3>Kunci dan Pembahasan</h3>
+
+      ${soal.map((q, i) => `
+
+        <div class="pembahasan">
+
+          <b>Soal ${i + 1}</b>
+
+          <div class="arab-kunci" lang="ar">
+            ${kunci(q).map(j =>
+              aman(q.kata[j].teks)
+            ).join("، ")}
+          </div>
+
+          <ul>
+            ${kunci(q).map(j => `
+              <li>
+                ${aman(q.kata[j].alasan)}
+              </li>
+            `).join("")}
+          </ul>
+
+        </div>
+
+      `).join("")}
+
+    ` : `
+
+      <p class="catatan">
+        Ada ${soalSalah.length} soal yang
+        dapat diperbaiki satu kali.
+
+        Kunci lengkap ditampilkan setelah
+        perbaikan.
+      </p>
+
+    `}
+
+    <div class="aksi" id="aksiHasil"></div>
+
+    <p class="catatan">
+      Latihan ini tidak mengirim jawaban
+      ke Google Sheets dan tidak menyimpan
+      nilai secara permanen.
+
+      Memuat ulang halaman akan
+      menghapus hasil sesi ini.
+    </p>
+  `;
+
+  const aksi =
+    document.getElementById("aksiHasil");
+
+  // Tombol perbaikan
+  if (!selesaiPerbaikan &&
+      soalSalah.length) {
+
+    const btn =
+      document.createElement("button");
+
+    btn.className = "tombol";
+
+    btn.textContent =
+      `Perbaiki ${soalSalah.length} Soal yang Salah`;
+
+    btn.addEventListener("click", () => {
+
+      tahap = "perbaikan";
+      urutan = 0;
+      dipilih = new Set();
+
+      tampilSoal();
+
+      window.scrollTo(0, 0);
+    });
+
+    aksi.appendChild(btn);
+  }
+
+  // Tombol mulai ulang
+  const ulang =
+    document.createElement("button");
+
+  ulang.className =
+    "tombol sekunder";
+
+  ulang.textContent =
+    "Mulai Ulang dari Awal";
+
+  ulang.addEventListener("click", () => {
+
+    const yakin = confirm(
+      "Mulai ulang? Semua skor sesi ini akan hilang."
+    );
+
+    if (!yakin) {
+      return;
+    }
+
+    jawabanAwal.fill(null);
+    jawabanPerbaikan.fill(null);
+
+    tahap = "awal";
+    urutan = 0;
+    dipilih = new Set();
+    soalSalah = [];
+
+    tampilSoal();
+
+    window.scrollTo(0, 0);
+  });
+
+  aksi.appendChild(ulang);
+}
+
+// =====================================
+// BAGIAN 7: MENJALANKAN LATIHAN
+// =====================================
+
+tampilSoal();
+
+</script>
+
+</body>
+</html>
